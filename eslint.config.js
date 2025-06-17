@@ -38,5 +38,3 @@ export default tseslint.config(
 
   storybook.configs["flat/recommended"]
 );
-
-console.dir(storybook.configs["flat/recommended"], { depth: null });
