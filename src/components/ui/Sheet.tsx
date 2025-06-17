@@ -1,17 +1,16 @@
 "use client";
 import * as React from "react";
 import { Drawer } from "vaul";
-import { tv } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
 
-type Variant = "flat" | "floating";
-type Direction = "left" | "right" | "bottom";
-type Backdrop = "opaque" | "transparent" | "blur";
+export type SheetVariant = "flat" | "floating";
+export type SheetDirection = "left" | "right" | "bottom";
+export type SheetBackdrop = "opaque" | "transparent" | "blur";
 
 type SheetContext = {
-  variant: Variant;
-  backdrop: Backdrop;
-  direction: Direction;
+  variant: SheetVariant;
+  backdrop: SheetBackdrop;
+  direction: SheetDirection;
 };
 
 type SheetRootProps = React.ComponentProps<typeof Drawer.Root> &
@@ -44,7 +43,7 @@ export const SheetPortal = Drawer.Portal;
 
 type SheetOverlayProps = {
   className?: string;
-  backdrop?: Backdrop;
+  backdrop?: SheetBackdrop;
 };
 
 export const SheetOverlay = (props: SheetOverlayProps) => {

@@ -4,18 +4,24 @@ import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction } from "storybook/internal/types";
 import type { ReactRenderer, StoryContext } from "@storybook/react";
 import { ThemeProvider, useTheme, type ThemeProviderProps } from "next-themes";
-import { DocsContainer, type DocsContainerProps } from "@storybook/addon-docs/blocks";
+import {
+  DocsContainer,
+  type DocsContainerProps
+} from "@storybook/addon-docs/blocks";
 
 type ThemeSwitcherProps = React.PropsWithChildren<{
   theme: string;
 }>;
 
-
 const ThemeSwitcher = ({ theme, children }: ThemeSwitcherProps) => {
   const { setTheme } = useTheme();
-  React.useEffect(() => setTheme(theme), [theme]);
+  React.useEffect(() => setTheme(theme), [theme, setTheme]);
 
-  return <div className="bg-background text-foreground">{children}</div>;
+  return (
+    <div className="rounded-lg bg-background p-4 text-foreground">
+      {children}
+    </div>
+  );
 };
 
 type NextThemesDecorator = Omit<
@@ -35,6 +41,7 @@ export const withNextThemes = ({
 }: NextThemesDecorator): DecoratorFunction<ReactRenderer> => {
   initializeThemeState(Object.keys(themes), defaultTheme);
 
+  // eslint-disable-next-line react/display-name
   return (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);
     const { themeOverride } = context.parameters.themes ?? {};
@@ -52,39 +59,37 @@ export const withNextThemes = ({
   };
 };
 
-
 export function CustomDocsContainer({
-  children,
   context,
+  children,
+  ...restProps
 }: React.PropsWithChildren<DocsContainerProps>) {
-  const { pluckThemeFromContext } = DecoratorHelpers;
-
   const primaryStoryContext = React.useMemo(() => {
     const storyContext = context.getStoryContext(context.componentStories()[0]);
     return storyContext;
-  }, []);
+  }, [context]);
 
   const { themeOverride } = primaryStoryContext.parameters.themes ?? {};
   const selectedTheme = pluckThemeFromContext(
-    primaryStoryContext as StoryContext,
+    primaryStoryContext as StoryContext
   );
 
   const selected = themeOverride || selectedTheme || "dark";
 
   const resolvedTheme = React.useMemo(() => {
     if (selected === "system") {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      const systemTheme = isDark ? 'dark' : 'light'
-      return systemTheme
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const systemTheme = isDark ? "dark" : "light";
+      return systemTheme;
     }
-    return selected
+    return selected;
   }, [selected]);
 
   return (
     <DocsContainer
+      {...restProps}
       context={context}
-      theme={sbThemes[resolvedTheme as "light" | "dark"]}
-    >
+      theme={sbThemes[resolvedTheme as "light" | "dark"]}>
       {children}
     </DocsContainer>
   );

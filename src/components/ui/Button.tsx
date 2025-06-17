@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Slot } from "radix-ui";
-import { useFormContext } from "react-hook-form";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import { LoadingIcon } from "./Icons";
@@ -100,7 +99,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <Comp
       {...restProps}
-      disabled={isDisabled ?? isLoading}
+      disabled={isDisabled || isLoading}
       className={buttonVariants({ className, size, variant })}>
       {_startContent}
       {size !== "icon" ? (

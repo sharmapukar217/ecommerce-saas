@@ -1,11 +1,15 @@
 import "@/assets/global.css";
 import type { Preview } from "@storybook/nextjs-vite";
-import { CustomDocsContainer, withNextThemes } from "./decorators/with-next-themes";
+import {
+  CustomDocsContainer,
+  withNextThemes
+} from "./decorators/with-next-themes";
 
 const preview: Preview = {
   parameters: {
     docs: {
-      container: CustomDocsContainer,
+      toc: true,
+      container: CustomDocsContainer
     },
     controls: {
       matchers: {

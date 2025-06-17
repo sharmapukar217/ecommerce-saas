@@ -117,7 +117,7 @@ export const MenuCheckboxItem = (
   return (
     <DropdownMenu.CheckboxItem
       {...restProps}
-      className={menuItemVariant({ className })}>
+      className={menuItemVariant({ className: [className, "pe-8"] })}>
       {children}
       <span className="pointer-events-none absolute right-2 flex size-3.5 items-center justify-center">
         <DropdownMenu.ItemIndicator>

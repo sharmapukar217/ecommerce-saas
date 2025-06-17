@@ -4,6 +4,10 @@
 @custom-variant hover (&:hover);
 @custom-variant dark (&:where(.dark, .dark *));
 
+@plugin "@tailwindcss/forms" {
+  strategy: "class";
+}
+
 @theme inline {
   --color-border: var(--color-border);
   --color-background: var(--color-background);
@@ -114,7 +118,7 @@
   }
 
   * {
-    @apply border-border select-none;
+    @apply border-border;
   }
 
   body {
