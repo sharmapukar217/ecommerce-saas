@@ -83,7 +83,7 @@
       "twMerge"
     ]
   },
-  "lintStaged": {
+  "lint-staged": {
     "*.(j|t)s(x)?": [
       "prettier --cache --write",
       "eslint --fix --cache --max-warnings=0"
