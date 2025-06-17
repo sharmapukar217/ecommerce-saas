@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
         permanent: true
       }
     ];
-  }
+  },
+  turbopack: {}
 };
 
 export default nextConfig;
